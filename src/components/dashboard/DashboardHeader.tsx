@@ -11,8 +11,26 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { SidebarTrigger } from "@/components/ui/sidebar";
+import { supabase } from "@/lib/supabase";
+import { toast } from "sonner";
 
 export const DashboardHeader = () => {
+  const handleLogout = async () => {
+    try {
+      const { error } = await supabase.auth.signOut();
+      if (error) {
+        toast.error("Logout failed. Please try again.");
+        return;
+      }
+      
+      toast.success("Logged out successfully!");
+      window.location.href = "/login";
+    } catch (error) {
+      console.error("Logout error:", error);
+      toast.error("Logout failed. Please try again.");
+    }
+  };
+
   return (
     <header className="h-16 border-b border-border bg-card/50 backdrop-blur-sm flex items-center justify-between px-6">
       <div className="flex items-center space-x-4">
@@ -40,12 +58,12 @@ export const DashboardHeader = () => {
               <Avatar className="h-8 w-8">
                 <AvatarImage src="/placeholder-avatar.jpg" alt="User" />
                 <AvatarFallback className="bg-primary text-primary-foreground">
-                  JD
+                  A
                 </AvatarFallback>
               </Avatar>
               <div className="hidden md:block text-left">
-                <p className="text-sm font-medium">John Doe</p>
-                <p className="text-xs text-muted-foreground">Admin</p>
+                <p className="text-sm font-medium">Admin</p>
+                <p className="text-xs text-muted-foreground">Administrator</p>
               </div>
               <ChevronDown className="h-4 w-4 text-muted-foreground" />
             </Button>
@@ -62,7 +80,10 @@ export const DashboardHeader = () => {
               Settings
             </DropdownMenuItem>
             <DropdownMenuSeparator />
-            <DropdownMenuItem className="cursor-pointer text-destructive focus:text-destructive">
+            <DropdownMenuItem 
+              className="cursor-pointer text-destructive focus:text-destructive"
+              onClick={handleLogout}
+            >
               <LogOut className="mr-2 h-4 w-4" />
               Logout
             </DropdownMenuItem>

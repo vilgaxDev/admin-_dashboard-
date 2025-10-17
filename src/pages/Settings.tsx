@@ -158,9 +158,13 @@ const Settings = () => {
             <h1 className="text-3xl font-bold text-foreground">Settings</h1>
             <p className="text-muted-foreground">Manage your account and application preferences</p>
           </div>
-          <Button className="ocean-gradient text-white">
+          <Button 
+            className="ocean-gradient text-white"
+            onClick={handleSaveSettings}
+            disabled={isSaving}
+          >
             <Save className="h-4 w-4 mr-2" />
-            Save Changes
+            {isSaving ? "Saving..." : "Save Changes"}
           </Button>
         </div>
 
@@ -204,23 +208,43 @@ const Settings = () => {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div className="space-y-2">
                     <Label htmlFor="firstName">First Name</Label>
-                    <Input id="firstName" defaultValue="John" />
+                    <Input 
+                      id="firstName" 
+                      value={profileData.firstName}
+                      onChange={(e) => handleProfileChange("firstName", e.target.value)}
+                    />
                   </div>
                   <div className="space-y-2">
                     <Label htmlFor="lastName">Last Name</Label>
-                    <Input id="lastName" defaultValue="Doe" />
+                    <Input 
+                      id="lastName" 
+                      value={profileData.lastName}
+                      onChange={(e) => handleProfileChange("lastName", e.target.value)}
+                    />
                   </div>
                   <div className="space-y-2">
                     <Label htmlFor="email">Email Address</Label>
-                    <Input id="email" type="email" defaultValue="john.doe@beachways.com" />
+                    <Input 
+                      id="email" 
+                      type="email" 
+                      value={profileData.email}
+                      onChange={(e) => handleProfileChange("email", e.target.value)}
+                    />
                   </div>
                   <div className="space-y-2">
                     <Label htmlFor="phone">Phone Number</Label>
-                    <Input id="phone" defaultValue="+1 555-0123" />
+                    <Input 
+                      id="phone" 
+                      value={profileData.phone}
+                      onChange={(e) => handleProfileChange("phone", e.target.value)}
+                    />
                   </div>
                   <div className="space-y-2">
                     <Label htmlFor="role">Role</Label>
-                    <Select defaultValue="admin">
+                    <Select 
+                      value={profileData.role}
+                      onValueChange={(value) => handleProfileChange("role", value)}
+                    >
                       <SelectTrigger>
                         <SelectValue />
                       </SelectTrigger>
@@ -233,7 +257,10 @@ const Settings = () => {
                   </div>
                   <div className="space-y-2">
                     <Label htmlFor="timezone">Timezone</Label>
-                    <Select defaultValue="utc-5">
+                    <Select 
+                      value={profileData.timezone}
+                      onValueChange={(value) => handleProfileChange("timezone", value)}
+                    >
                       <SelectTrigger>
                         <SelectValue />
                       </SelectTrigger>
@@ -402,12 +429,18 @@ const Settings = () => {
                     <div className="flex items-center space-x-2">
                       <Mail className="h-4 w-4 text-muted-foreground" />
                       <Label>Email</Label>
-                      <Switch defaultChecked />
+                      <Switch 
+                        checked={notificationSettings.emailNotifications}
+                        onCheckedChange={(checked) => handleNotificationChange("emailNotifications", checked)}
+                      />
                     </div>
                     <div className="flex items-center space-x-2">
                       <Phone className="h-4 w-4 text-muted-foreground" />
                       <Label>SMS</Label>
-                      <Switch />
+                      <Switch 
+                        checked={notificationSettings.smsNotifications}
+                        onCheckedChange={(checked) => handleNotificationChange("smsNotifications", checked)}
+                      />
                     </div>
                   </div>
                 </div>
@@ -429,17 +462,37 @@ const Settings = () => {
                 <div className="space-y-4">
                   <div className="space-y-2">
                     <Label htmlFor="currentPassword">Current Password</Label>
-                    <Input id="currentPassword" type="password" />
+                    <Input 
+                      id="currentPassword" 
+                      type="password" 
+                      value={securityData.currentPassword}
+                      onChange={(e) => handleSecurityChange("currentPassword", e.target.value)}
+                    />
                   </div>
                   <div className="space-y-2">
                     <Label htmlFor="newPassword">New Password</Label>
-                    <Input id="newPassword" type="password" />
+                    <Input 
+                      id="newPassword" 
+                      type="password" 
+                      value={securityData.newPassword}
+                      onChange={(e) => handleSecurityChange("newPassword", e.target.value)}
+                    />
                   </div>
                   <div className="space-y-2">
                     <Label htmlFor="confirmPassword">Confirm New Password</Label>
-                    <Input id="confirmPassword" type="password" />
+                    <Input 
+                      id="confirmPassword" 
+                      type="password" 
+                      value={securityData.confirmPassword}
+                      onChange={(e) => handleSecurityChange("confirmPassword", e.target.value)}
+                    />
                   </div>
-                  <Button>Update Password</Button>
+                  <Button 
+                    onClick={handlePasswordChange}
+                    disabled={isSaving}
+                  >
+                    {isSaving ? "Updating..." : "Update Password"}
+                  </Button>
                 </div>
 
                 <Separator />
@@ -453,7 +506,10 @@ const Settings = () => {
                         Add an extra layer of security to your account
                       </p>
                     </div>
-                    <Switch />
+                    <Switch 
+                      checked={securityData.twoFactorEnabled}
+                      onCheckedChange={(checked) => handleSecurityChange("twoFactorEnabled", checked)}
+                    />
                   </div>
                 </div>
 
