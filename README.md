@@ -1,4 +1,4 @@
-# Welcome to your Lovable project
+# Welcome to your Beachways Admin dashboard project
 
 ## Project info
 
@@ -10,9 +10,9 @@ There are several ways of editing your application.
 
 **Use Lovable**
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/b7a4eb2e-634f-4d27-9cc7-b1c8a60cb3e6) and start prompting.
+Simply visit the [Beachways Admin dashboard Project](https://lovable.dev/projects/b7a4eb2e-634f-4d27-9cc7-b1c8a60cb3e6) and start prompting.
 
-Changes made via Lovable will be committed automatically to this repo.
+Changes made via Beachways Admin dashboard will be committed automatically to this repo.
 
 **Use your preferred IDE**
 
@@ -64,7 +64,7 @@ This project is built with:
 
 Simply open [Lovable](https://lovable.dev/projects/b7a4eb2e-634f-4d27-9cc7-b1c8a60cb3e6) and click on Share -> Publish.
 
-## Can I connect a custom domain to my Lovable project?
+## Can I connect a custom domain to my Beachways Admin dashboard project?
 
 Yes, you can!
 
